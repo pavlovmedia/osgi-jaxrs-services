@@ -85,6 +85,8 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
         renderProviderSet(pw);
         even.set(false);
         renderFeatureSet(pw);
+        even.set(false);
+        renderReaderListenerSet(pw);
     }
     
     private void renderProviderSet(final PrintWriter pw) {
@@ -105,6 +107,15 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
         pw.println("<table class=\"nicetable\"><thead><tr><th class=\"header\">Class</th></tr></thead>");
         publisher.getFeatures().forEach(feature -> {
             pw.println(String.format(FEATURE_ROW_FORMAT, rowClass(), feature.getClass().getName()));
+        });
+        pw.println("</table>");
+    }
+    
+    private void renderReaderListenerSet(final PrintWriter pw) {
+        pw.println("<br/><p class=\"statline ui-state-highlight\">Swagger ReaderListeners:</p>");
+        pw.println("<table class=\"nicetable\"><thead><tr><th class=\"header\">Class</th></tr></thead>");
+        publisher.getReaderListeners().forEach(reader -> {
+            pw.println(String.format(FEATURE_ROW_FORMAT, rowClass(), reader.getName()));
         });
         pw.println("</table>");
     }

@@ -15,9 +15,9 @@
  */
 package com.pavlovmedia.oss.jaxrs.publisher.impl.swagger;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletConfig;
 import javax.ws.rs.core.Application;
@@ -101,10 +101,13 @@ public class SwaggerEndpoint extends DefaultJaxrsScanner implements SwaggerConfi
     
     @Override
     public Set<Class<?>> classesFromContext(final Application app, final ServletConfig sc) {
-        return publisher.getRawEndpoints().stream()
+        HashSet<Class<?>> ret = new HashSet<>();
+        publisher.getRawEndpoints().stream()
                 .map(o -> o.getClass())
                 .filter(c -> c.isAnnotationPresent(Api.class))
-                .collect(Collectors.toSet());
+                .forEach(ret::add);
+        publisher.getReaderListeners().forEach(ret::add);
+        return ret;
     }
 
     @Override

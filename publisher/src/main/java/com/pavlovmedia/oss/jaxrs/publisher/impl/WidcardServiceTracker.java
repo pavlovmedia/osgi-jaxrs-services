@@ -15,11 +15,11 @@
  */
 package com.pavlovmedia.oss.jaxrs.publisher.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.felix.scr.annotations.Activate;
@@ -82,7 +82,7 @@ public class WidcardServiceTracker extends BaseObjectTracker {
     private BundleContext context;
     
     /** This is a tracker for any {@link ServiceReference} that we hold */
-    final List<ServiceReference> openReferences = new ArrayList<>();
+    final List<ServiceReference> openReferences = new CopyOnWriteArrayList<>();
     
     /**
      * This activate is here to control the service
@@ -144,17 +144,22 @@ public class WidcardServiceTracker extends BaseObjectTracker {
             return;
         }
         
+        ServiceReference serviceReference = event.getServiceReference();
+        
         switch(event.getType()) {
             case ServiceEvent.REGISTERED:
                 // See if we really want to use this
-                tryAddService(event.getServiceReference());
+                tryAddService(serviceReference);
                 break;
             case ServiceEvent.UNREGISTERING:
-                if (openReferences.contains(event.getServiceReference())) {
-                    openReferences.remove(event.getServiceReference());
-                    context.ungetService(event.getServiceReference());
+                if (openReferences.contains(serviceReference)) {
+                    logger.log(LogService.LOG_DEBUG, String.format("Removing service %s", serviceReference));
+                    openReferences.remove(serviceReference);
+                    context.ungetService(serviceReference);
+                } else {
+                    logger.log(LogService.LOG_DEBUG, String.format("Did not find service reference %s in %s", serviceReference, openReferences));
                 }
-                removeTarget(context.getService(event.getServiceReference()));
+                removeTarget(serviceReference);
                 break;
             default:
                 // Do nothing
@@ -172,7 +177,7 @@ public class WidcardServiceTracker extends BaseObjectTracker {
         try {
             Object jaxPage = context.getService(serviceReference);
             if (null != jaxPage) {
-                if (addTarget(jaxPage)) {
+                if (addTarget(serviceReference, jaxPage)) {
                     openReferences.add(serviceReference);
                 } else {
                     context.ungetService(serviceReference);

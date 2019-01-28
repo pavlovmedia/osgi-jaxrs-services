@@ -5,7 +5,7 @@
 
   <groupId>com.pavlovmedia.oss.jaxrs</groupId>
   <artifactId>com.pavlovmedia.oss.jaxrs</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.5</version>
   <packaging>pom</packaging>
 
   <name>JAX-RS Services</name>
@@ -65,7 +65,7 @@
     <!-- Plugin versions -->
     <checkstyle.config.location>https://raw.githubusercontent.com/pavlovmedia/checkstyle/master/pavlov.xml</checkstyle.config.location>
     <maven-bundle-plugin.version>3.0.1</maven-bundle-plugin.version>
-    <maven-scr-plugin.version>1.21.0</maven-scr-plugin.version>
+    <maven-scr-plugin.version>1.26.0</maven-scr-plugin.version>
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <pluginversions.javaver>1.8</pluginversions.javaver>
     <maven-jar-plugin.version>2.5</maven-jar-plugin.version>
