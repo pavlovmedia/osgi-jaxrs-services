@@ -289,7 +289,6 @@ public class JerseyPublisher extends Application implements Publisher {
         } else {
             debug("Jersey not up yet");
         }
-        System.out.println("singletons = " + ret);
         return ret;
     }
    
