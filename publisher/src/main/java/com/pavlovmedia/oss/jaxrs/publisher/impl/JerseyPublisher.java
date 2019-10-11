@@ -191,10 +191,10 @@ public class JerseyPublisher extends Application implements Publisher {
     // This catches Exception because OSGi can make this fail in unusual ways
     private void tryRegisterFeature(final Supplier<Class<?>> featureClassSupplier) {
         try {
-            Object feature = featureClassSupplier.get().newInstance();
+            Object feature = featureClassSupplier.get().getDeclaredConstructor().newInstance();
             ServiceRegistration<?> reg = bundleContext.registerService(featureClassSupplier.get().getName(), feature, null);
             featureRegistrations.add(reg);
-        } catch (NoClassDefFoundError | InstantiationException | IllegalAccessException e) {
+        } catch (Exception e) {
             info("Failed to register feature if you don't need it, don't worry: %s",
                     e.getMessage());
         }
