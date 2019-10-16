@@ -33,7 +33,7 @@ import com.pavlovmedia.oss.jaxrs.publisher.impl.config.SwaggerConfigurationConfi
 @Component(immediate=true,
     property= {
         Publisher.SCAN_IGNORE + "=true",
-        "com.eclipsesource.jaxrs.publish=" + false
+        "com.eclipsesource.jaxrs.publish=false"
     },
     service= {
             SwaggerConfiguration.class
@@ -61,13 +61,13 @@ public class SwaggerConfiguration {
     }
     
     private void parse(final SwaggerConfigurationConfig properties) {
-        title = (String) properties.title();
-        description = (String) properties.description();
-        apiVersion = (String) properties.apiVersion();
-        contactName = (String) properties.contactName();
-        contactUrl = (String) properties.contactUrl();
-        contactEmail = (String) properties.contactEmail();
-        licenseName = (String) properties.licenseName();
-        licenseUrl = (String) properties.licenseUrl();
+        title = properties.title();
+        description = properties.description();
+        apiVersion = properties.apiVersion();
+        contactName = properties.contactName();
+        contactUrl = properties.contactUrl();
+        contactEmail = properties.contactEmail();
+        licenseName = properties.licenseName();
+        licenseUrl = properties.licenseUrl();
     }
 }

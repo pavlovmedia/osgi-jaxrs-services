@@ -28,16 +28,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.felix.webconsole.AbstractWebConsolePlugin;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.Logger;
 import org.osgi.service.log.LoggerFactory;
-import org.osgi.service.metatype.annotations.Designate;
-
 import com.pavlovmedia.oss.jaxrs.publisher.api.EndpointInfo;
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
-import com.pavlovmedia.oss.jaxrs.webconsole.config.JaxrsConsoleConfig;
 
 /**
  * This is a webconsole module that works with Apache Felix to display
@@ -52,9 +48,9 @@ import com.pavlovmedia.oss.jaxrs.webconsole.config.JaxrsConsoleConfig;
 @Component(
         service = javax.servlet.Servlet.class,
         property= {
-                Publisher.SCAN_IGNORE + "=true"
+                Publisher.SCAN_IGNORE + "=true",
+                "felix.webconsole.label=JAXRS"
         })
-@Designate(ocd = JaxrsConsoleConfig.class)
 public class JaxrsConsole extends AbstractWebConsolePlugin {
     private static final long serialVersionUID = -8881711830329491641L;
     private static final String PAGE_ROW_FORMAT = "<tr class=\"%s ui-state-default\"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>";
@@ -70,9 +66,6 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
     public String getLabel() {
         return LABEL;
     }
-    
-    @Activate
-    private JaxrsConsoleConfig config;
     
     @Reference(service = LoggerFactory.class)
     Logger logger;
@@ -98,7 +91,6 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
     }
     
     private void renderProviderSet(final PrintWriter pw) {
-        logger.info("Inside JaxrsConsole's renderProviderSet");
         pw.println("<br/><p class=\"statline ui-state-highlight\">JAX-RS Providers:</p>");
         pw.println("<table class=\"nicetable\"><thead><tr><th class=\"header\">Class</th><th class=\"header\">Interfaces</th></tr></thead>");
         publisher.getProviders().forEach(provider -> {
@@ -112,7 +104,6 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
     }
     
     private void renderFeatureSet(final PrintWriter pw) {
-        logger.info("Inside JaxrsConsole's renderFeatureSet");
         pw.println("<br/><p class=\"statline ui-state-highlight\">JAX-RS Features:</p>");
         pw.println("<table class=\"nicetable\"><thead><tr><th class=\"header\">Class</th></tr></thead>");
         publisher.getFeatures().forEach(feature -> {
@@ -122,7 +113,6 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
     }
     
     private void renderReaderListenerSet(final PrintWriter pw) {
-        logger.info("Inside JaxrsConsole's renderReaderListenerSet");
         pw.println("<br/><p class=\"statline ui-state-highlight\">Swagger ReaderListeners:</p>");
         pw.println("<table class=\"nicetable\"><thead><tr><th class=\"header\">Class</th></tr></thead>");
         publisher.getReaderListeners().forEach(reader -> {
@@ -132,7 +122,6 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
     }
     
     private void renderPageSet(final PrintWriter pw) {
-        logger.info("Inside JaxrsConsole's renderPageSet");
         pw.println("<br/><p class=\"statline ui-state-highlight\">JAX-RS Pages:</p>");
         pw.println("<table class=\"nicetable\"><thead><tr><th class=\"header\">Class</th><th class=\"header\">Path</th>"
                 +"<th class=\"header\">Verb</th><th class=\"header\">Accept Types</th><th class=\"header\">Response Types</th></tr></thead>");

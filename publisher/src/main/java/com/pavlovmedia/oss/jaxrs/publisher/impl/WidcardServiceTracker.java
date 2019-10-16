@@ -47,7 +47,7 @@ import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
  */
 @Component(factory=WidcardServiceTracker.FACTORY_NAME,
     property= {
-        "com.eclipsesource.jaxrs.publish=" + false
+        "com.eclipsesource.jaxrs.publish=false"
     })
 public class WidcardServiceTracker extends BaseObjectTracker {
     public static final String FACTORY_NAME = "com.pavlovmedia.oss.jaxrs.provider.impl.WidcardServiceTracker";

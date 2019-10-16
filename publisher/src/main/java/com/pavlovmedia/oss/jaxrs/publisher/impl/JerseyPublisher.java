@@ -15,6 +15,7 @@
  */
 package com.pavlovmedia.oss.jaxrs.publisher.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,7 +74,7 @@ import com.pavlovmedia.oss.jaxrs.publisher.impl.swagger.SwaggerEndpoint;
     //OSGi properties that do not require editing via the ConfigMgr by declaring them in this property array.
     property= {
         Publisher.SCAN_IGNORE + "=true",
-        "com.eclipsesource.jaxrs.publish=" + false
+        "com.eclipsesource.jaxrs.publish=false"
     })
 // With @Designate, mark this OSGi service as taking the Configuration class as the config to be passed into @Activate, @Deactivate and @Modified methods
 @Designate(ocd = PublisherConfig.class)
@@ -187,6 +188,10 @@ public class JerseyPublisher extends Application implements Publisher {
      * is for SSE, it is listed as an optional import in the manifest
      * so one may choose not to bring it in, and this should allow the
      * system to run, even without it.
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
      */
     // This catches Exception because OSGi can make this fail in unusual ways
     private void tryRegisterFeature(final Supplier<Class<?>> featureClassSupplier) {
@@ -194,7 +199,7 @@ public class JerseyPublisher extends Application implements Publisher {
             Object feature = featureClassSupplier.get().getDeclaredConstructor().newInstance();
             ServiceRegistration<?> reg = bundleContext.registerService(featureClassSupplier.get().getName(), feature, null);
             featureRegistrations.add(reg);
-        } catch (Exception e) {
+        } catch (NoClassDefFoundError | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             info("Failed to register feature if you don't need it, don't worry: %s",
                     e.getMessage());
         }

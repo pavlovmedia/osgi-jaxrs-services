@@ -19,8 +19,6 @@ package com.pavlovmedia.oss.jaxrs.publisher.command;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.log.Logger;
-import org.osgi.service.log.LoggerFactory;
 import org.osgi.service.metatype.annotations.Designate;
 
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
@@ -33,6 +31,7 @@ import com.pavlovmedia.oss.jaxrs.publisher.impl.config.ProviderCommandConfig;
  *
  */
 @Component(
+    service=ProviderCommands.class,
     property= {
         Publisher.SCAN_IGNORE + "=true"
     }) 
@@ -41,19 +40,16 @@ public class ProviderCommands {
     @Reference
     Publisher publisher;
     
-    @Reference(service = LoggerFactory.class)
-    Logger logger;
-    
     @Activate
     private ProviderCommandConfig config;
     /**
      * Lists all the registred endpoints
      */
     public void getEndpoints() {
-        logger.debug("JAX-RS Endpoint mappings: ");
+        System.out.println("JAX-RS Endpoint mappings: ");
         publisher.getEndpoints().forEach((k,v) -> {
-            logger.debug(k);
-            v.forEach(e -> logger.debug(String.format("\t%s", e)));
+            System.out.println(k);
+            v.forEach(e -> System.out.println(String.format("\t%s", e)));
         });
     }
     
@@ -61,19 +57,19 @@ public class ProviderCommands {
      * Lists all the registered features
      */
     public void getFeatures() {
-        logger.debug("JAX-RS Features:");
-        publisher.getFeatures().forEach(f -> logger.debug(f.getClass().getName()));
+        System.out.println("JAX-RS Features:");
+        publisher.getFeatures().forEach(f -> System.out.println(f.getClass().getName()));
     }
     
     /**
      * Lists all the registered providers
      */
     public void getProviders() {
-        logger.debug("JAX-RS Providers:");
+        System.out.println("JAX-RS Providers:");
         publisher.getProviders().forEach(p -> {
-            logger.debug(String.format("%s with the following interfaces:", p.getClass().getName()));
+            System.out.println(String.format("%s with the following interfaces:", p.getClass().getName()));
             for (Class<?> i :p.getClass().getInterfaces()) {
-                logger.debug(String.format("\t%s", i.getName()));
+                System.out.println(String.format("\t%s", i.getName()));
             }
         });
     }
