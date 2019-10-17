@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
-<repository lastmodified="20191017120546.081">
-   <resource id="ccbe01a2-3e94-4be5-a3eb-e783bae2fee4" symbolicname="com.pavlovmedia.oss.jaxrs.publisher" version="2.0.0" presentationname="JAX-RS Services Publisher" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.publisher/2.0.0/com.pavlovmedia.oss.jaxrs.publisher-2.0.0.jar">
+<repository lastmodified="20191017120956.168">
+   <resource id="15d5ed6a-9eac-47df-a265-5b11c3568b97" symbolicname="com.pavlovmedia.oss.jaxrs.publisher" version="2.0.0" presentationname="JAX-RS Services Publisher" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.publisher/2.0.0/com.pavlovmedia.oss.jaxrs.publisher-2.0.0.jar">
       <description>This project is a wrapper around the Jersey implementation of the    JAX-RS specification.  It is designed to be deployed into OSGi and     will scan services for instances that JAX-RS can use.</description>
       <size>39919</size>
       <license>http://www.apache.org/licenses/LICENSE-2.0.txt</license>
@@ -45,7 +45,7 @@
       <require name="package" filter="(&amp;(package=org.osgi.service.http)(&amp;(version&gt;=1.2.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="false">Import package org.osgi.service.http</require>
       <require name="package" filter="(&amp;(package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="false">Import package org.osgi.service.log</require>
    </resource>
-   <resource id="3f8fbc4d-c102-4671-beec-5b8ef165fd13" symbolicname="com.pavlovmedia.oss.jaxrs.webconsole" version="2.0.0" presentationname="JAX-RS Services Webconsole Support" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.webconsole/2.0.0/com.pavlovmedia.oss.jaxrs.webconsole-2.0.0.jar">
+   <resource id="a3bea255-1b15-4805-913b-dde5e7d66d9b" symbolicname="com.pavlovmedia.oss.jaxrs.webconsole" version="2.0.0" presentationname="JAX-RS Services Webconsole Support" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.webconsole/2.0.0/com.pavlovmedia.oss.jaxrs.webconsole-2.0.0.jar">
       <description>This project is a wrapper around the Jersey implementation of the    JAX-RS specification.  It is designed to be deployed into OSGi and     will scan services for instances that JAX-RS can use.</description>
       <size>7970</size>
       <license>http://www.apache.org/licenses/LICENSE-2.0.txt</license>
