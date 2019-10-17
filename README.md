@@ -11,6 +11,7 @@ Builds
 |--------|--------|-----|
 | Master | [![Build Status](https://travis-ci.org/pavlovmedia/osgi-jaxrs-services.svg?branch=master)](https://travis-ci.org/pavlovmedia/osgi-jaxrs-services) | |
 | 1.0 | [![Build Status](https://travis-ci.org/pavlovmedia/osgi-jaxrs-services.svg?branch=1.0-release)](https://travis-ci.org/pavlovmedia/osgi-jaxrs-services) | [repository.xml](https://raw.githubusercontent.com/pavlovmedia/osgi-jaxrs-services/1.0-release/obr/repository.xml) |
+| 2.0 (Java 11) | [![Build Status](https://travis-ci.org/pavlovmedia/osgi-jaxrs-services.svg?branch=2.0-release)](https://travis-ci.org/pavlovmedia/osgi-jaxrs-services) | [repository.xml](https://raw.githubusercontent.com/pavlovmedia/osgi-jaxrs-services/2.0-release/obr/repository.xml) |
 
 Latest Version
 --------------
