@@ -62,17 +62,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <bundle.category>JAX-RS</bundle.category>
-    <!-- Plugin versions -->
     <checkstyle.config.location>https://raw.githubusercontent.com/pavlovmedia/checkstyle/master/pavlov.xml</checkstyle.config.location>
     <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
-    <!-- <maven-scr-plugin.version>1.26.0</maven-scr-plugin.version> -->
-    
-    <!-- for java 11 -->
-    <!-- changed from 1.8 to 11 -->
     <pluginversions.javaver>11</pluginversions.javaver>
-    <!-- changed from 2.9.1 to 3.1.1 -->
     <pluginversions.javadoc>3.1.1</pluginversions.javadoc>
-    <!-- changed from 2.3 to 3.8.0 --> 
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
@@ -82,9 +75,7 @@
     <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
     <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
-    <!-- OSGi support versions -->
     <osgi.version>7.0.0</osgi.version>
-    <!-- <scr.annotations.version>1.12.0</scr.annotations.version> -->
     <osgi.component.annotations.version>1.4.0</osgi.component.annotations.version>
     <config-admin.version>1.9.16</config-admin.version>
     <log.version>1.2.0</log.version>
@@ -115,13 +106,6 @@
       <version>${osgi.version}</version>
       <scope>provided</scope>
     </dependency>
-
-    <!-- <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.apache.felix.scr.annotations</artifactId>
-      <version>${scr.annotations.version}</version>
-      <scope>provided</scope>
-    </dependency>-->
 
     <dependency>
       <groupId>org.apache.felix</groupId>
@@ -209,10 +193,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
-          <!-- <configuration>
-            <source>${pluginversions.javaver}</source>
-            <target>${pluginversions.javaver}</target>
-          </configuration>-->
           <configuration>
             <release>${pluginversions.javaver}</release>
           </configuration>
@@ -221,19 +201,6 @@
           <artifactId>maven-jar-plugin</artifactId>
           <version>${maven-jar-plugin.version}</version>
         </plugin>
-        <!-- <plugin>
-          <groupId>org.apache.felix</groupId>
-          <artifactId>maven-scr-plugin</artifactId>
-          <version>${maven-scr-plugin.version}</version>
-          <executions>
-            <execution>
-              <id>generate-scr-scrdescriptor</id>
-              <goals>
-                <goal>scr</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin> -->
         <plugin>
           <groupId>org.apache.felix</groupId>
           <artifactId>maven-bundle-plugin</artifactId>
