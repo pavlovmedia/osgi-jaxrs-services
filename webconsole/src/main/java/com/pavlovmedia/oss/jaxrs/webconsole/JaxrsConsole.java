@@ -27,32 +27,30 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
 import org.apache.felix.webconsole.AbstractWebConsolePlugin;
-
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.Logger;
+import org.osgi.service.log.LoggerFactory;
 import com.pavlovmedia.oss.jaxrs.publisher.api.EndpointInfo;
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
 
 /**
  * This is a webconsole module that works with Apache Felix to display
  * state about the JAX-RS system.
- * <br/><br/>
+ *
  * Note that this may work in other OSGi implementations, but has not been
  * tested.
  * 
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
  */
-@Component
-@Service
-@Properties({
-    @Property(name="felix.webconsole.label", value=JaxrsConsole.LABEL),
-    @Property(name=Publisher.SCAN_IGNORE, value="true")
-})
+@Component(
+        service = javax.servlet.Servlet.class,
+        property= {
+                Publisher.SCAN_IGNORE + "=true",
+                "felix.webconsole.label=JAXRS"
+        })
 public class JaxrsConsole extends AbstractWebConsolePlugin {
     private static final long serialVersionUID = -8881711830329491641L;
     private static final String PAGE_ROW_FORMAT = "<tr class=\"%s ui-state-default\"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>";
@@ -68,7 +66,10 @@ public class JaxrsConsole extends AbstractWebConsolePlugin {
     public String getLabel() {
         return LABEL;
     }
-
+    
+    @Reference(service = LoggerFactory.class)
+    Logger logger;
+    
     @Override
     public String getTitle() {
         return TITLE;

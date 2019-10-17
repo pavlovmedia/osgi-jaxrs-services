@@ -15,16 +15,13 @@
  */
 package com.pavlovmedia.oss.jaxrs.publisher.impl.swagger;
 
-import java.util.Map;
-
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Modified;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Service;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.metatype.annotations.Designate;
 
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
+import com.pavlovmedia.oss.jaxrs.publisher.impl.config.SwaggerConfigurationConfig;
 
 /**
  * This class represents the meta-data that can be served by
@@ -33,20 +30,15 @@ import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
  */
-@Component(immediate=true, metatype=true)
-@Service(SwaggerConfiguration.class)
-@Properties({
-    @Property(name=Publisher.SCAN_IGNORE, value="true", propertyPrivate=true),
-    @Property(name="com.eclipsesource.jaxrs.publish", boolValue=false, propertyPrivate=true),
-    @Property(name="title", label="Title", value="JAX-RS Project"),
-    @Property(name="description", label="Description"),
-    @Property(name="apiVersion", label="API Version", description="The version of this api", value="1.0"),
-    @Property(name="contactName", label="Contact Name"),
-    @Property(name="contactUrl", label="Contact URL"),
-    @Property(name="contactEmail", label="Contact Email"),
-    @Property(name="licenseName", label="License Name", description="Something like 'Apache 2.0'"),
-    @Property(name="licenseUrl", label="License URL")
-})
+@Component(immediate=true,
+    property= {
+        Publisher.SCAN_IGNORE + "=true",
+        "com.eclipsesource.jaxrs.publish=false"
+    },
+    service= {
+            SwaggerConfiguration.class
+    })
+@Designate(ocd = SwaggerConfigurationConfig.class)
 public class SwaggerConfiguration {
     
     public String title;
@@ -59,23 +51,23 @@ public class SwaggerConfiguration {
     public String licenseUrl;
     
     @Activate
-    protected void activate(final Map<String,Object> properties) {
+    protected void activate(final SwaggerConfigurationConfig properties) {
         parse(properties);
     }
     
     @Modified
-    protected void modified(final Map<String,Object> properties) {
+    protected void modified(final SwaggerConfigurationConfig properties) {
         parse(properties);
     }
     
-    private void parse(final Map<String,Object> properties) {
-        title = (String) properties.get("title");
-        description = (String) properties.get("description");
-        apiVersion = (String) properties.get("apiVersion");
-        contactName = (String) properties.get("contactName");
-        contactUrl = (String) properties.get("contactUrl");
-        contactEmail = (String) properties.get("contactEmail");
-        licenseName = (String) properties.get("licenseName");
-        licenseUrl = (String) properties.get("licenseUrl");
+    private void parse(final SwaggerConfigurationConfig properties) {
+        title = properties.title();
+        description = properties.description();
+        apiVersion = properties.apiVersion();
+        contactName = properties.contactName();
+        contactUrl = properties.contactUrl();
+        contactEmail = properties.contactEmail();
+        licenseName = properties.licenseName();
+        licenseUrl = properties.licenseUrl();
     }
 }

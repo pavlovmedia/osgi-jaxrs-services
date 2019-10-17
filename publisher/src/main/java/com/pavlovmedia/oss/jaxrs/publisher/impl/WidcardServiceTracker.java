@@ -22,17 +22,16 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceReference;
-import org.osgi.service.log.LogService;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.log.Logger;
+import org.osgi.service.log.LoggerFactory;
 
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
 
@@ -46,10 +45,10 @@ import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
  */
-@Component(factory=WidcardServiceTracker.FACTORY_NAME)
-@Properties({
-    @Property(name="com.eclipsesource.jaxrs.publish", boolValue=false)
-})
+@Component(factory=WidcardServiceTracker.FACTORY_NAME,
+    property= {
+        "com.eclipsesource.jaxrs.publish=false"
+    })
 public class WidcardServiceTracker extends BaseObjectTracker {
     public static final String FACTORY_NAME = "com.pavlovmedia.oss.jaxrs.provider.impl.WidcardServiceTracker";
     public static final String FACTORY_FILTER = "(component.factory="+FACTORY_NAME+")";
@@ -59,30 +58,30 @@ public class WidcardServiceTracker extends BaseObjectTracker {
     
     /** This is a blocker to keep us from parsing while we are shutting down */
     private final AtomicBoolean processing = new AtomicBoolean(true);
-    
-    @Reference
-    LogService logger;
+
+    @Reference(service = LoggerFactory.class)
+    Logger logger;
     
     @Override
     public void logDebug(final String format, final Object... args) {
-        logger.log(LogService.LOG_DEBUG, String.format(format, args));
+        logger.debug(String.format(format, args));
     }
     
     @Override
     public void logInfo(final String format, final Object... args) {
-        logger.log(LogService.LOG_INFO, String.format(format, args));
+        logger.info(String.format(format, args));
     }
     
     @Override
     public void logError(final Exception e, final String format, final Object... args) {
-        logger.log(LogService.LOG_INFO, String.format(format, args), e);
+        logger.info(String.format(format, args), e);
     }
     
     /** The context is saved so we can get and unget services */
     private BundleContext context;
     
     /** This is a tracker for any {@link ServiceReference} that we hold */
-    final List<ServiceReference> openReferences = new CopyOnWriteArrayList<>();
+    final List<ServiceReference<?>> openReferences = new CopyOnWriteArrayList<>();
     
     /**
      * This activate is here to control the service
@@ -144,7 +143,7 @@ public class WidcardServiceTracker extends BaseObjectTracker {
             return;
         }
         
-        ServiceReference serviceReference = event.getServiceReference();
+        ServiceReference<?> serviceReference = event.getServiceReference();
         
         switch(event.getType()) {
             case ServiceEvent.REGISTERED:
@@ -153,11 +152,11 @@ public class WidcardServiceTracker extends BaseObjectTracker {
                 break;
             case ServiceEvent.UNREGISTERING:
                 if (openReferences.contains(serviceReference)) {
-                    logger.log(LogService.LOG_DEBUG, String.format("Removing service %s", serviceReference));
+                    logger.debug(String.format("Removing service %s", serviceReference));
                     openReferences.remove(serviceReference);
                     context.ungetService(serviceReference);
                 } else {
-                    logger.log(LogService.LOG_DEBUG, String.format("Did not find service reference %s in %s", serviceReference, openReferences));
+                    logger.debug(String.format("Did not find service reference %s in %s", serviceReference, openReferences));
                 }
                 removeTarget(serviceReference);
                 break;
@@ -173,7 +172,7 @@ public class WidcardServiceTracker extends BaseObjectTracker {
      * 
      * @param serviceReference the service reference of the service
      */
-    private void tryAddService(final ServiceReference serviceReference) {
+    private void tryAddService(final ServiceReference<?> serviceReference) {
         try {
             Object jaxPage = context.getService(serviceReference);
             if (null != jaxPage) {

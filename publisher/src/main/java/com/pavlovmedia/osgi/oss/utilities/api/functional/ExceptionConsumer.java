@@ -19,8 +19,8 @@ package com.pavlovmedia.osgi.oss.utilities.api.functional;
  * 
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
- * @param <T>
- * @param <E>
+ * @param <T> Input to apply
+ * @param <E> Exception that can be thrown
  */
 @FunctionalInterface
 public interface ExceptionConsumer<T,E extends Exception> {

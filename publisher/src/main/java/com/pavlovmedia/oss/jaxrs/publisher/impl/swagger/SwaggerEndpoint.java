@@ -22,20 +22,18 @@ import java.util.function.Consumer;
 import javax.servlet.ServletConfig;
 import javax.ws.rs.core.Application;
 
-import org.apache.felix.scr.annotations.Activate;
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Deactivate;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.ReferencePolicy;
-import org.apache.felix.scr.annotations.Service;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
 import org.osgi.service.http.HttpService;
+import org.osgi.service.log.Logger;
+import org.osgi.service.log.LoggerFactory;
 
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
-
 import io.swagger.annotations.Api;
 import io.swagger.config.SwaggerConfig;
 import io.swagger.jaxrs.config.DefaultJaxrsScanner;
@@ -54,12 +52,12 @@ import io.swagger.models.Swagger;
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
  */
-@Component
-@Service(SwaggerEndpoint.class)
-@Properties({
-    @Property(name=Publisher.SCAN_IGNORE, value="true"),
-    @Property(name="com.eclipsesource.jaxrs.publish", boolValue=false)
-})
+@Component(
+    service = SwaggerEndpoint.class,
+    property= {
+        Publisher.SCAN_IGNORE + "=true",
+        "com.eclipsesource.jaxrs.publish=false"
+    })
 public class SwaggerEndpoint extends DefaultJaxrsScanner implements SwaggerConfig {
     private static final String SCANNER_ID = "swagger.scanner.id.default";
     @Reference
@@ -71,8 +69,11 @@ public class SwaggerEndpoint extends DefaultJaxrsScanner implements SwaggerConfi
     @Reference
     Publisher publisher;
     
-    private ServiceRegistration apiResource;
-    private ServiceRegistration serializerResource;
+    @Reference(service = LoggerFactory.class)
+    Logger logger;
+    
+    private ServiceRegistration<?> apiResource;
+    private ServiceRegistration<?> serializerResource;
     
     @Activate
     /**
@@ -82,7 +83,7 @@ public class SwaggerEndpoint extends DefaultJaxrsScanner implements SwaggerConfi
      * @param context the context for this bundle
      */
     protected void activator(final BundleContext context) {
-        System.out.println("SwwaggerEndpoint activate");
+        logger.info("SwaggerEndpoint activate");
         // Add our scanner as the default so it will just fire
         SwaggerScannerLocator.getInstance().putScanner(SCANNER_ID, this);
         

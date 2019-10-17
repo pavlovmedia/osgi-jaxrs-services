@@ -21,11 +21,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
-
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.ext.Provider;
-
 import org.osgi.framework.ServiceReference;
 
 /**
@@ -57,8 +55,8 @@ public class BaseObjectTracker {
      * This is a very brain-dead logging method, it really needs
      * to be overridden by one that logs using the OSGi logger.
      * 
-     * @param format
-     * @param args
+     * @param format - pass the log format
+     * @param args - pass the arguments
      */
     public void logDebug(final String format, final Object...args) {
         System.out.println(String.format(format, args));
@@ -68,8 +66,8 @@ public class BaseObjectTracker {
      * This is a very brain-dead logging method, it really needs
      * to be overridden by one that logs using the OSGi logger.
      * 
-     * @param format
-     * @param args
+     * @param format - pass the log format
+     * @param args - pass the arguments
      */
     public void logInfo(final String format, final Object...args) {
         System.out.println(String.format(format, args));
@@ -79,9 +77,9 @@ public class BaseObjectTracker {
      * This is a very brain-dead logging method, it really needs
      * to be overridden by one that logs using the OSGi logger.
      * 
-     * @param e
-     * @param format
-     * @param args
+     * @param e - exception
+     * @param format - pass the log format
+     * @param args - pass the arguments
      */
     public void logError(final Exception e, final String format, final Object...args) {
         System.out.println(String.format(format, args));
@@ -95,7 +93,7 @@ public class BaseObjectTracker {
      * This list may already be of objects already
      * so the conversion here may be extra, but you
      * can always override it in that case.
-     * @return
+     * @return Set of Objects
      */
     public Set<Object> getJaxrsTargets() {
         return jaxrsTargets.stream()
@@ -105,9 +103,11 @@ public class BaseObjectTracker {
     
     /**
      * This is called from the implementing class to add a JAX-RS target
-     * @param target
+     * @param target - a target object
+     * @param serviceReference - a ServiceReference object
+     * @return boolean
      */
-    protected boolean addTarget(final ServiceReference serviceReference, final Object target) {
+    protected boolean addTarget(final ServiceReference<?> serviceReference, final Object target) {
         if (isJaxrsTarget(target.getClass(), target)) {
             logInfo("Adding target %s", target);
             if (jaxrsTargets.add(new JaxReference(serviceReference, target))) {
@@ -121,8 +121,9 @@ public class BaseObjectTracker {
     /**
      * This is called from the implementing class to remove a JAX-RS target
      * @param target the service to be removed
+     * @return boolean
      */
-    protected boolean removeTarget(final ServiceReference target) {
+    protected boolean removeTarget(final ServiceReference<?> target) {
         // Sometimes service tracking gets us null objects
         if (null != target) {
             logDebug("Removing target %s", target);
@@ -140,6 +141,7 @@ public class BaseObjectTracker {
      * object in question
      * 
      * @param clazz class to inspect
+     * @param target - a target object
      * @return true if this is a class type that jaxrs will use
      */
     public boolean isJaxrsTarget(final Class<?> clazz, final Object target) {

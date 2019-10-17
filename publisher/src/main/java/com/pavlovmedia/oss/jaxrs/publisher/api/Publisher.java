@@ -74,25 +74,27 @@ public interface Publisher {
     /**
      * Adds a class definition for a reader listener object.
      * Note that these are not OSGi classes
-     * @param clazz
+     * @param clazz - pass the class to be added
      */
     void addReaderListener(Class<?> clazz);
     
     /**
      * Remove a class definition for a reader listener object.
-     * @param clazz
+     * @param clazz - pass the class to be added
      */
     void removeReaderListener(Class<?> clazz);
     
     /**
-     * Gets the list of {@link ReaderListener} objects that
+     * Gets the list of @see ReaderListener objects that
      * have been detected by the runtime.
      * 
-     * @return
+     * @return a Set
      */
     Set<Class<?>> getReaderListeners();
     
-    /** Gets the web path of this publisher */
+    /** Gets the web path of this publisher 
+     * @return a Path
+     * */
     String getPath();
     
     /**

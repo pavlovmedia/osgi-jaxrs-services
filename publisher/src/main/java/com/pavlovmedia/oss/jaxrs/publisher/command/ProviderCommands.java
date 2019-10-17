@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 package com.pavlovmedia.oss.jaxrs.publisher.command;
+ 
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
-import org.apache.felix.scr.annotations.Service;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.metatype.annotations.Designate;
 
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
+import com.pavlovmedia.oss.jaxrs.publisher.impl.config.ProviderCommandConfig;
 
 /**
  * Commands to facilitate debugging of the JAX-RS system.
@@ -29,17 +30,18 @@ import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
  */
-@Component
-@Service(ProviderCommands.class)
-@Properties({ 
-    @Property(name = "osgi.command.scope", value = "jax"),
-    @Property(name = "osgi.command.function", value = { "getEndpoints", "getFeatures", "getProviders" }),
-    @Property(name = Publisher.SCAN_IGNORE, value = "true")
-})
+@Component(
+    service=ProviderCommands.class,
+    property= {
+        Publisher.SCAN_IGNORE + "=true"
+    }) 
+@Designate(ocd = ProviderCommandConfig.class)
 public class ProviderCommands {
     @Reference
     Publisher publisher;
     
+    @Activate
+    private ProviderCommandConfig config;
     /**
      * Lists all the registred endpoints
      */

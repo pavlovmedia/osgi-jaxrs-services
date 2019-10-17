@@ -39,7 +39,7 @@ import javax.ws.rs.Produces;
  * there may be things that JAX-RS may call 'conflicts' that it 
  * won't deal with. The point is to be a quick debugging 
  * reference.
- * <br /><br />
+ *
  * Note that has a similar structure to a DTO where all the properties
  * are final, and you can only construct this using a utility method,
  * in this case {@link #parseEndpoint(Object)}

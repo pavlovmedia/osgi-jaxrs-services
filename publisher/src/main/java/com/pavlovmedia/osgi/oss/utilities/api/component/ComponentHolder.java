@@ -40,11 +40,11 @@ import com.pavlovmedia.osgi.oss.utilities.api.functional.ExceptionFunction;
  * 
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
- * @param <T>
+ * @param T Generic Type
  */
 public class ComponentHolder<T> implements AutoCloseable {
-    protected Optional<ComponentFactory> factory = Optional.empty();
-    protected Optional<ComponentInstance> instance = Optional.empty();
+    protected Optional<ComponentFactory<?>> factory = Optional.empty();
+    protected Optional<ComponentInstance<?>> instance = Optional.empty();
     protected Optional<T> actual = Optional.empty();
     
     /**
@@ -52,9 +52,9 @@ public class ComponentHolder<T> implements AutoCloseable {
      * a component. It can only be called once before we close this
      * holder.
      * 
-     * @param factory
+     * @param factory - pass a Component Factor to be set 
      */
-    public void setFactory(final ComponentFactory factory) {
+    public void setFactory(final ComponentFactory<?> factory) {
         if (this.factory.isPresent()) {
           throw new IllegalStateException("There is already a factory set");
         }
@@ -65,8 +65,8 @@ public class ComponentHolder<T> implements AutoCloseable {
     /**
      * This will do all the work of provisioning a new instance using
      * the provided properties and will return true if it is successful
-     * @param properties
-     * @return
+     * @param properties - pass a properties Map
+     * @return boolean
      */
     @SuppressWarnings("unchecked")
     public boolean provision(final Map<String,Object> properties) {
@@ -86,8 +86,9 @@ public class ComponentHolder<T> implements AutoCloseable {
      * This will execute an action with an response against the
      * instance.
      * 
-     * @param action
-     * @return
+     * @param action It is a function with T Input to apply 
+     * @param <R> Return from apply
+     * @return R the function result
      */
     public <R> R withService(final Function<T,R> action) {
         if (actual.isPresent()) {
@@ -99,6 +100,8 @@ public class ComponentHolder<T> implements AutoCloseable {
     /**
      * This method is to execute a function against this instance that can throw an exception.
      * @param action the action to execute against this component instance
+     * @param <R> Return from apply
+     * @param <E> Exception that can be thrown
      * @return whatever the action returns
      * @throws E if the action throws an exception
      */
@@ -126,6 +129,7 @@ public class ComponentHolder<T> implements AutoCloseable {
      * This method is to execute an action against this instance with no 
      * response but may throw an exception
      * @param action action to execute against this component instance
+     * @param <E> Exception that can be thrown
      * @throws E if the action throws an exception
      */
     public <E extends Exception> void againstExceptionService(final ExceptionConsumer<T, E> action) throws E {
