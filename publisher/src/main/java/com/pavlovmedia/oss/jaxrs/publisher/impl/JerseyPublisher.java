@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -188,10 +189,6 @@ public class JerseyPublisher extends Application implements Publisher {
      * is for SSE, it is listed as an optional import in the manifest
      * so one may choose not to bring it in, and this should allow the
      * system to run, even without it.
-     * @throws SecurityException 
-     * @throws NoSuchMethodException 
-     * @throws InvocationTargetException 
-     * @throws IllegalArgumentException 
      */
     // This catches Exception because OSGi can make this fail in unusual ways
     private void tryRegisterFeature(final Supplier<Class<?>> featureClassSupplier) {
@@ -211,7 +208,7 @@ public class JerseyPublisher extends Application implements Publisher {
      */
     private void tryStartSwagger() {
         try {
-            logger.info("Starting swagger. In tryStartSwagger.");
+            logger.debug("Starting swagger. In tryStartSwagger.");
             // We will search for a service reference that implements swagger
             // this is a loose relation so that we are able to fail easily
             swaggerEndpoint = Optional.ofNullable(bundleContext.getServiceReference(SwaggerEndpoint.class.getName()));
@@ -265,7 +262,7 @@ public class JerseyPublisher extends Application implements Publisher {
      * aka add a new service, remove a service.
      */
     protected void onChange() {
-        if (initialized.get() && (container.getWebComponent() != null)) {
+        if (initialized.get() && Objects.nonNull(container.getWebComponent())) {
             debug("Reloading configuration");
             container.reload(ResourceConfig.forApplication(this));
             changeWatchers.values().forEach(Runnable::run);
