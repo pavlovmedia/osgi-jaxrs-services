@@ -1,29 +1,29 @@
 <?xml version="1.0" ?>
-<repository lastmodified="20191017120956.168">
-   <resource id="15d5ed6a-9eac-47df-a265-5b11c3568b97" symbolicname="com.pavlovmedia.oss.jaxrs.publisher" version="2.0.0" presentationname="JAX-RS Services Publisher" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.publisher/2.0.0/com.pavlovmedia.oss.jaxrs.publisher-2.0.0.jar">
+<repository lastmodified="20191112020924.806">
+   <resource id="01137b2e-b57f-4132-80e0-d97acd2ecd3b" symbolicname="com.pavlovmedia.oss.jaxrs.publisher" version="2.0.1" presentationname="JAX-RS Services Publisher" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.publisher/2.0.1/com.pavlovmedia.oss.jaxrs.publisher-2.0.1.jar">
       <description>This project is a wrapper around the Jersey implementation of the    JAX-RS specification.  It is designed to be deployed into OSGi and     will scan services for instances that JAX-RS can use.</description>
-      <size>39919</size>
+      <size>39922</size>
       <license>http://www.apache.org/licenses/LICENSE-2.0.txt</license>
       <category id="JAX-RS"/>
       <capability name="bundle">
          <p n="symbolicname" v="com.pavlovmedia.oss.jaxrs.publisher"/>
          <p n="presentationname" v="JAX-RS Services Publisher"/>
-         <p n="version" t="version" v="2.0.0"/>
+         <p n="version" t="version" v="2.0.1"/>
          <p n="manifestversion" v="2"/>
       </capability>
       <capability name="package">
          <p n="package" v="com.pavlovmedia.oss.jaxrs.publisher.api"/>
-         <p n="version" t="version" v="2.0.0"/>
+         <p n="version" t="version" v="2.0.1"/>
          <p n="uses:" v="javax.ws.rs.core"/>
       </capability>
       <capability name="package">
          <p n="package" v="com.pavlovmedia.osgi.oss.utilities.api.component"/>
-         <p n="version" t="version" v="2.0.0"/>
+         <p n="version" t="version" v="2.0.1"/>
          <p n="uses:" v="com.pavlovmedia.osgi.oss.utilities.api.functional,org.osgi.service.component"/>
       </capability>
       <capability name="package">
          <p n="package" v="com.pavlovmedia.osgi.oss.utilities.api.functional"/>
-         <p n="version" t="version" v="2.0.0"/>
+         <p n="version" t="version" v="2.0.1"/>
       </capability>
       <require name="package" filter="(&amp;(package=com.pavlovmedia.osgi.oss.utilities.api.component)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.osgi.oss.utilities.api.component</require>
       <require name="package" filter="(&amp;(package=com.pavlovmedia.osgi.oss.utilities.api.functional)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.osgi.oss.utilities.api.functional</require>
@@ -45,15 +45,15 @@
       <require name="package" filter="(&amp;(package=org.osgi.service.http)(&amp;(version&gt;=1.2.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="false">Import package org.osgi.service.http</require>
       <require name="package" filter="(&amp;(package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="false">Import package org.osgi.service.log</require>
    </resource>
-   <resource id="a3bea255-1b15-4805-913b-dde5e7d66d9b" symbolicname="com.pavlovmedia.oss.jaxrs.webconsole" version="2.0.0" presentationname="JAX-RS Services Webconsole Support" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.webconsole/2.0.0/com.pavlovmedia.oss.jaxrs.webconsole-2.0.0.jar">
+   <resource id="8a381341-868e-4e7e-8d7e-d21a0d44e563" symbolicname="com.pavlovmedia.oss.jaxrs.webconsole" version="2.0.1" presentationname="JAX-RS Services Webconsole Support" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.webconsole/2.0.1/com.pavlovmedia.oss.jaxrs.webconsole-2.0.1.jar">
       <description>This project is a wrapper around the Jersey implementation of the    JAX-RS specification.  It is designed to be deployed into OSGi and     will scan services for instances that JAX-RS can use.</description>
-      <size>7970</size>
+      <size>7972</size>
       <license>http://www.apache.org/licenses/LICENSE-2.0.txt</license>
       <category id="JAX-RS"/>
       <capability name="bundle">
          <p n="symbolicname" v="com.pavlovmedia.oss.jaxrs.webconsole"/>
          <p n="presentationname" v="JAX-RS Services Webconsole Support"/>
-         <p n="version" t="version" v="2.0.0"/>
+         <p n="version" t="version" v="2.0.1"/>
          <p n="manifestversion" v="2"/>
       </capability>
       <require name="package" filter="(&amp;(package=com.pavlovmedia.oss.jaxrs.publisher.api)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.oss.jaxrs.publisher.api</require>
