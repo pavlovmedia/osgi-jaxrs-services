@@ -72,12 +72,10 @@ import com.pavlovmedia.oss.jaxrs.publisher.impl.swagger.SwaggerEndpoint;
  *
  */
 @Component(immediate=true,
-    //OSGi properties that do not require editing via the ConfigMgr by declaring them in this property array.
     property= {
         Publisher.SCAN_IGNORE + "=true",
         "com.eclipsesource.jaxrs.publish=false"
     })
-// With @Designate, mark this OSGi service as taking the Configuration class as the config to be passed into @Activate, @Deactivate and @Modified methods
 @Designate(ocd = PublisherConfig.class)
 public class JerseyPublisher extends Application implements Publisher {
     public static final String PATH = "path";
@@ -285,7 +283,7 @@ public class JerseyPublisher extends Application implements Publisher {
     
     @Override
     public Set<Object> getSingletons() {
-        HashSet<Object> ret = new HashSet<Object>(super.getSingletons());
+        HashSet<Object> ret = new HashSet<>(super.getSingletons());
         if (initialized.get()) {
             ret.addAll(wildcardTracker.withService(BaseObjectTracker::getJaxrsTargets));
         } else {

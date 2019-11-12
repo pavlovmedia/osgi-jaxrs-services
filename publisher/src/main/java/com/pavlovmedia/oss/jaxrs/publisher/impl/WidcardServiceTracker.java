@@ -143,22 +143,25 @@ public class WidcardServiceTracker extends BaseObjectTracker {
             return;
         }
         
-        ServiceReference<?> serviceReference = event.getServiceReference();
+        
         
         switch(event.getType()) {
             case ServiceEvent.REGISTERED:
+                ServiceReference<?> addedServiceReference = event.getServiceReference();
                 // See if we really want to use this
-                tryAddService(serviceReference);
+                System.out.format("Service %s has been registered\n", addedServiceReference);
+                tryAddService(addedServiceReference);
                 break;
             case ServiceEvent.UNREGISTERING:
-                if (openReferences.contains(serviceReference)) {
-                    logger.debug(String.format("Removing service %s", serviceReference));
-                    openReferences.remove(serviceReference);
-                    context.ungetService(serviceReference);
+                ServiceReference<?> removedServiceReference = event.getServiceReference();
+                if (openReferences.contains(removedServiceReference)) {
+                    logger.debug(String.format("Removing service %s", removedServiceReference));
+                    openReferences.remove(removedServiceReference);
+                    context.ungetService(removedServiceReference);
                 } else {
-                    logger.debug(String.format("Did not find service reference %s in %s", serviceReference, openReferences));
+                    logger.debug(String.format("Did not find service reference %s in %s", removedServiceReference, openReferences));
                 }
-                removeTarget(serviceReference);
+                removeTarget(removedServiceReference);
                 break;
             default:
                 // Do nothing
