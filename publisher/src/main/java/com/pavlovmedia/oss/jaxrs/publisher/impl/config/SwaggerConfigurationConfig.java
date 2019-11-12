@@ -3,6 +3,11 @@ package com.pavlovmedia.oss.jaxrs.publisher.impl.config;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
+/**
+ * Configuration object for our swagger endpoint
+ * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
+ *
+ */
 @ObjectClassDefinition(name="SwaggerConfigurationConfig", description="Configuration for SwaggerConfiguration")
 public @interface SwaggerConfigurationConfig {
     @AttributeDefinition(name="title")
