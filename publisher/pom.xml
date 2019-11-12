@@ -51,6 +51,9 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+      </plugin>
+      <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
           <archive>
