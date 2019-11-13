@@ -62,7 +62,9 @@
     <configuration>
         <bnd><![CDATA[
 -exportcontents:\
- com.pavlovmedia.oss.jaxrs.publisher.api
+ com.pavlovmedia.oss.jaxrs.publisher.api,\
+ com.pavlovmedia.osgi.oss.utilities.api.component,\
+ com.pavlovmedia.osgi.oss.utilities.api.functional
         ]]></bnd>
     </configuration>
       </plugin>
