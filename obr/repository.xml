@@ -1,33 +1,33 @@
 <?xml version="1.0" ?>
-<repository lastmodified="20191112045307.405">
-   <resource id="ccb62930-d4a1-44c2-b9e9-16f04de1ee30" symbolicname="com.pavlovmedia.oss.jaxrs.publisher" version="2.0.2" presentationname="JAX-RS Services Publisher" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.publisher/2.0.2/com.pavlovmedia.oss.jaxrs.publisher-2.0.2.jar">
+<repository lastmodified="20191113101247.168">
+   <resource id="3ca9eceb-c6e1-4c86-8d5f-1b754af867a8" symbolicname="com.pavlovmedia.oss.jaxrs.publisher" version="2.0.3" presentationname="JAX-RS Services Publisher" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.publisher/2.0.3/com.pavlovmedia.oss.jaxrs.publisher-2.0.3.jar">
       <description>This project is a wrapper around the Jersey implementation of the    JAX-RS specification.  It is designed to be deployed into OSGi and     will scan services for instances that JAX-RS can use.</description>
-      <size>39777</size>
+      <size>38450</size>
       <license>http://www.apache.org/licenses/LICENSE-2.0.txt</license>
       <category id="JAX-RS"/>
       <capability name="bundle">
          <p n="symbolicname" v="com.pavlovmedia.oss.jaxrs.publisher"/>
          <p n="presentationname" v="JAX-RS Services Publisher"/>
-         <p n="version" t="version" v="2.0.2"/>
+         <p n="version" t="version" v="2.0.3"/>
          <p n="manifestversion" v="2"/>
       </capability>
       <capability name="package">
          <p n="package" v="com.pavlovmedia.oss.jaxrs.publisher.api"/>
+         <p n="version" t="version" v="2.0.3"/>
          <p n="uses:" v="javax.ws.rs.core"/>
-         <p n="version" t="version" v="2.0.2"/>
       </capability>
       <capability name="package">
          <p n="package" v="com.pavlovmedia.osgi.oss.utilities.api.component"/>
+         <p n="version" t="version" v="2.0.3"/>
          <p n="uses:" v="com.pavlovmedia.osgi.oss.utilities.api.functional,org.osgi.service.component"/>
-         <p n="version" t="version" v="2.0.2"/>
       </capability>
       <capability name="package">
          <p n="package" v="com.pavlovmedia.osgi.oss.utilities.api.functional"/>
-         <p n="version" t="version" v="2.0.2"/>
+         <p n="version" t="version" v="2.0.3"/>
       </capability>
-      <require name="package" filter="(&amp;(package=com.pavlovmedia.osgi.oss.utilities.api.component)(version&gt;=0.0.0))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.osgi.oss.utilities.api.component</require>
-      <require name="package" filter="(&amp;(package=com.pavlovmedia.osgi.oss.utilities.api.functional)(version&gt;=0.0.0))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.osgi.oss.utilities.api.functional</require>
-      <require name="package" filter="(&amp;(package=com.pavlovmedia.oss.jaxrs.publisher.api)(version&gt;=0.0.0))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.oss.jaxrs.publisher.api</require>
+      <require name="package" filter="(&amp;(package=com.pavlovmedia.osgi.oss.utilities.api.component)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.osgi.oss.utilities.api.component</require>
+      <require name="package" filter="(&amp;(package=com.pavlovmedia.osgi.oss.utilities.api.functional)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.osgi.oss.utilities.api.functional</require>
+      <require name="package" filter="(&amp;(package=com.pavlovmedia.oss.jaxrs.publisher.api)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.oss.jaxrs.publisher.api</require>
       <require name="package" filter="(&amp;(package=io.swagger.annotations)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="true">Import package io.swagger.annotations</require>
       <require name="package" filter="(&amp;(package=io.swagger.config)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="true">Import package io.swagger.config</require>
       <require name="package" filter="(&amp;(package=io.swagger.jaxrs.config)(&amp;(version&gt;=1.5.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="true">Import package io.swagger.jaxrs.config</require>
@@ -45,15 +45,15 @@
       <require name="package" filter="(&amp;(package=org.osgi.service.http)(&amp;(version&gt;=1.2.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="false">Import package org.osgi.service.http</require>
       <require name="package" filter="(&amp;(package=org.osgi.service.log)(&amp;(version&gt;=1.4.0)(!(version&gt;=2.0.0))))" extend="false" multiple="false" optional="false">Import package org.osgi.service.log</require>
    </resource>
-   <resource id="861970f0-9bea-4fca-a874-6de71a276b98" symbolicname="com.pavlovmedia.oss.jaxrs.webconsole" version="2.0.2" presentationname="JAX-RS Services Webconsole Support" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.webconsole/2.0.2/com.pavlovmedia.oss.jaxrs.webconsole-2.0.2.jar">
+   <resource id="abfe547f-6441-4577-bbff-a3ff149f277e" symbolicname="com.pavlovmedia.oss.jaxrs.webconsole" version="2.0.3" presentationname="JAX-RS Services Webconsole Support" uri="https://dl.bintray.com/pavlovmedia/pavlov-media-oss/com/pavlovmedia/oss/jaxrs/com.pavlovmedia.oss.jaxrs.webconsole/2.0.3/com.pavlovmedia.oss.jaxrs.webconsole-2.0.3.jar">
       <description>This project is a wrapper around the Jersey implementation of the    JAX-RS specification.  It is designed to be deployed into OSGi and     will scan services for instances that JAX-RS can use.</description>
-      <size>7929</size>
+      <size>7795</size>
       <license>http://www.apache.org/licenses/LICENSE-2.0.txt</license>
       <category id="JAX-RS"/>
       <capability name="bundle">
          <p n="symbolicname" v="com.pavlovmedia.oss.jaxrs.webconsole"/>
          <p n="presentationname" v="JAX-RS Services Webconsole Support"/>
-         <p n="version" t="version" v="2.0.2"/>
+         <p n="version" t="version" v="2.0.3"/>
          <p n="manifestversion" v="2"/>
       </capability>
       <require name="package" filter="(&amp;(package=com.pavlovmedia.oss.jaxrs.publisher.api)(&amp;(version&gt;=2.0.0)(!(version&gt;=3.0.0))))" extend="false" multiple="false" optional="false">Import package com.pavlovmedia.oss.jaxrs.publisher.api</require>
