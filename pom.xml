@@ -63,7 +63,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <bundle.category>JAX-RS</bundle.category>
     <checkstyle.config.location>https://raw.githubusercontent.com/pavlovmedia/checkstyle/master/pavlov.xml</checkstyle.config.location>
-    <maven-bundle-plugin.version>4.2.1</maven-bundle-plugin.version>
+    <bnd-maven-plugin.version>4.3.0</bnd-maven-plugin.version>
     <pluginversions.javaver>11</pluginversions.javaver>
     <pluginversions.javadoc>3.1.1</pluginversions.javadoc>
     <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -193,29 +193,23 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>${maven-jar-plugin.version}</version>
+          <configuration>
+              <archive>
+                  <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+              </archive>
+          </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.felix</groupId>
-          <artifactId>maven-bundle-plugin</artifactId>
-          <version>${maven-bundle-plugin.version}</version>
+          <groupId>biz.aQute.bnd</groupId>
+          <artifactId>bnd-maven-plugin</artifactId>
+          <version>${bnd-maven-plugin.version}</version>
           <executions>
-            <execution>
-              <id>bundle-manifest</id>
-              <phase>process-classes</phase>
-              <goals>
-                <goal>manifest</goal>
-              </goals>
-            </execution>
+              <execution>
+                  <goals>
+                      <goal>bnd-process</goal>
+                  </goals>
+              </execution>
           </executions>
-          <extensions>true</extensions>
-          <configuration>
-            <rebuildBundle>true</rebuildBundle>
-            <exportScr>true</exportScr>
-            <instructions>
-              <Bundle-Version>${project.version}</Bundle-Version>
-              <Bundle-Category>${bundle.category}</Bundle-Category>
-            </instructions>
-          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

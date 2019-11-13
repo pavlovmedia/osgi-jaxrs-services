@@ -52,27 +52,18 @@
     <plugins>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-          </archive>
-        </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Bundle-Name>JAX-RS Services Publisher</Bundle-Name>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Export-Package>
-                            com.pavlovmedia.oss.jaxrs.publisher.api,
-                            com.pavlovmedia.osgi.oss.utilities.api.component,
-                            com.pavlovmedia.osgi.oss.utilities.api.functional
-            </Export-Package>
-            <Import-Package>*</Import-Package>
-          </instructions>
-        </configuration>
+          <groupId>biz.aQute.bnd</groupId>
+          <artifactId>bnd-maven-plugin</artifactId>
+    <configuration>
+        <bnd><![CDATA[
+-exportcontents:\
+ com.pavlovmedia.oss.jaxrs.publisher.api,\
+ com.pavlovmedia.osgi.oss.utilities.api.component,\
+ com.pavlovmedia.osgi.oss.utilities.api.functional
+        ]]></bnd>
+    </configuration>
       </plugin>
     </plugins>
   </build>
