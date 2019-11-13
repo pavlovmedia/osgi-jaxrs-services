@@ -40,7 +40,7 @@ import com.pavlovmedia.osgi.oss.utilities.api.functional.ExceptionFunction;
  * 
  * @author Shawn Dempsay {@literal <sdempsay@pavlovmedia.com>}
  *
- * @param T Generic Type
+ * @param <T> Generic Type
  */
 public class ComponentHolder<T> implements AutoCloseable {
     protected Optional<ComponentFactory<?>> factory = Optional.empty();

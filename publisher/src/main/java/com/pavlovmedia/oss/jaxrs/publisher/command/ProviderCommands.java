@@ -16,13 +16,10 @@
 package com.pavlovmedia.oss.jaxrs.publisher.command;
  
 
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.Designate;
 
 import com.pavlovmedia.oss.jaxrs.publisher.api.Publisher;
-import com.pavlovmedia.oss.jaxrs.publisher.impl.config.ProviderCommandConfig;
 
 /**
  * Commands to facilitate debugging of the JAX-RS system.
@@ -33,15 +30,16 @@ import com.pavlovmedia.oss.jaxrs.publisher.impl.config.ProviderCommandConfig;
 @Component(
     service=ProviderCommands.class,
     property= {
-        Publisher.SCAN_IGNORE + "=true"
+        Publisher.SCAN_IGNORE + "=true",
+        "osgi.command.scope=jax",
+        "osgi.command.function=getEndpoints",
+        "osgi.command.function=getFeatures",
+        "osgi.command.function=getProviders"
     }) 
-@Designate(ocd = ProviderCommandConfig.class)
 public class ProviderCommands {
     @Reference
     Publisher publisher;
     
-    @Activate
-    private ProviderCommandConfig config;
     /**
      * Lists all the registred endpoints
      */
