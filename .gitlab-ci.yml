@@ -1,0 +1,4 @@
+include:
+  - project: 'buildscripts/java-maven'
+    file: '/java8.yaml'
+
