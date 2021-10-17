@@ -1,8 +1,13 @@
+*.DS_Store
+*.checkstyle
 *.classpath
 *.project
 *.settings/
 *target/
-*.log
-.DS_Store
 *~
-*.vscode
+*preconfigure-*.json
+.vscode/
+/bin/
+.idea/
+*.iml
+

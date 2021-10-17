@@ -1,0 +1,3 @@
+include:
+  - project: 'buildscripts/java-maven'
+    file: '/java11.yaml'
